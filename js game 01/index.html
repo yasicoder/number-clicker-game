@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match the Number</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="./img/favs.png">
+</head>
+<body>
+    <div id="gamemain">
+    <h4>Match the Number<span class="play"> PLAY and WIN </span></h4>
+
+    <h1>?</h1>
+
+
+    <input type="text" placeholder="Enter your number " id="my">
+    <button id="btn01">Check</button>
+    <h2>😮‍💨enter your answer😮‍💨</h2>
+
+
+    <img src="./img/" alt="">
+
+
+
+
+    <div class="score" id="board">
+        <h3 class="board">Control Board</h3>
+ <h3 class="hh" id="hh">Life = <span class="lif" id="lif">5</span> </h3>
+ <h5>Score =<span id="sco" class="lif">0</span></h5>
+</div>
+
+    <Button id="btn02">Reset</Button>
+</div>
+  <h3 class="sta">Your Activity - <p id="act">No Activity Enter Number and Press Enter Key</p><span class="key"> short Keys = ENTER KEY = Check</span><span class="credit"> All rights Reserved @SL DEV Talks<span class="myname">  Designer-yasith dinuga</span></span></h3>
+
+
+
+
+  <!-- Java Side -->
+
+    <script>
+        let magicNumber = Math.trunc(Math.random()*20);
+        let life = 5 ;
+        let score = 0 ;
+
+
+        // Main Functions start........................................................................
+var input = document.getElementById("my");
+
+input.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("btn01").click();
+    document.querySelector('p').innerHTML="You pressed Enter Key";
+
+  }
+});
+
+
+        function sayrpt() {
+  alert("Noooo Dont Click This🤬😡😠! YOU ARE FAILED RESET AND RETRY");
+}
+function saywin() {
+  alert("You Win Reset and Retry😎🤩");
+}
+      // Main Functions end.............................................................................
+
+
+        document.querySelector('h1').innerHTML= magicNumber;
+
+        document.getElementById('btn01').addEventListener('click',function() {
+
+            let userAnswer = document.querySelector('input').value;
+            document.querySelector('p').innerHTML="";
+            function playSound(audiofile){
+                     let audio = new Audio(audiofile);
+                     audio.play();
+}
+
+// start if else..............................................................
+
+
+            if(!userAnswer){
+                document.querySelector('h2').innerHTML= 'No Number';
+                playSound('audio/lost1.wav');
+                document.querySelector('img').src = 'img/what.gif';
+
+
+// right answer and win................................................................
+
+        }else if(userAnswer == magicNumber){
+
+
+             if(score < 30){
+                document.querySelector('h2').innerHTML = '😃You got it  right😃';
+                document.getElementById('act').innerHTML = 'Enter Next Number and Press Enter Key';
+                score =  score + 10;
+                document.getElementById('board').style.backgroundColor = 'Darkgray';
+                document.getElementById('hh').style.color = 'Black';
+                document.querySelector('h5').style.color = 'Blue';
+                document.getElementById('sco').innerHTML = score;
+                magicNumber = Math.trunc(Math.random()*20);
+                document.querySelector('h1').innerHTML = magicNumber;
+                document.querySelector('body').style.backgroundColor = '#90e09a';
+                document.querySelector('img').src = 'img/up.gif';
+                playSound('audio/win1.wav');
+
+             }else if(score = 30 ){
+                document.querySelector('input').disabled = true;
+                document.querySelector('body').style.backgroundColor = 'rgb(255, 0, 106)';
+                document.querySelector('h2').innerHTML = '😃Congrtulations You Win😃';
+                document.getElementById('btn01').disabled = true;
+                document.querySelector('img').src= 'img/win.gif';
+                playSound('audio/good.wav');
+
+
+                document.getElementById('btn01').addEventListener('click',function() {
+                    if(!document.getElementById(btn01= click)){
+                        saywin();
+                    }
+
+                })
+
+             }
+
+
+
+// wrong short code
+        }else if(userAnswer!== magicNumber){
+
+            if (life >= 1){
+
+            document.querySelector('h2').innerHTML=(userAnswer > magicNumber)?'🙂Thats too high🙂' :'🤐Thats too low🤐' ;
+            life--;
+            document.getElementById('hh').style.color = 'Red';
+            document.getElementById('lif').innerHTML = life;
+            document.querySelector('img').src= 'img/sad.gif';
+            playSound('audio/no.mp3');
+
+
+            if(score > 0){
+            score=score-10;
+            document.getElementById('board').style.backgroundColor = 'rgb(255, 221, 0)';
+            document.querySelector('h5').style.color = 'Red';
+            document.getElementById('sco').innerHTML = score;
+            document.querySelector('img').src= 'img/wrong.gif';
+
+
+            }
+
+
+ // game over.....................................................
+
+            }else{
+                    document.querySelector('h2').innerHTML='😬Game over😬';
+                    document.querySelector('body').style.backgroundColor = 'pink';
+                    document.querySelector('h2').style.backgroundColor = '#FF0000';
+                    document.querySelector('img').src= 'img/angery.gif';
+                    document.querySelector('input').disabled = true;
+                    document.getElementById('hh').style.color='Red';
+                    document.querySelector('h5').style.color = 'Red';
+                    document.getElementById('board').style.backgroundColor = 'White';
+                    sayrpt();
+                    playSound('audio/bad.wav');
+
+
+
+                }
+
+            }
+
+        })
+
+
+// reset.............................
+        document.getElementById('btn02').addEventListener('click', function() {
+            function playSound(audiofile){
+    let audio = new Audio(audiofile);
+    audio.play();
+}
+
+
+
+        magicNumber = Math.trunc(Math.random()*20);
+        document.querySelector('h1').innerHTML = magicNumber;
+        life=5;
+        document.getElementById('lif').innerHTML = life;
+        playSound('audio/reset.wav');
+        document.querySelector('p').innerHTML="Ok Your Reset Was 😍 Successful Now Try 😍"
+
+
+        document.querySelector('input').value='';
+        document.querySelector('h2').innerHTML = '😮‍💨Re-enter your answer😮‍💨';
+        document.querySelector('h2').style.backgroundColor = 'rgb(53, 48, 48)';
+        document.getElementById('hh').style.color='Black';
+        document.getElementById('board').style.backgroundColor = 'Darkgray';
+        document.getElementById('hh').style.color = 'Black';
+        document.querySelector('h5').style.color = 'black';
+
+        document.querySelector('body').style.backgroundColor='#90e09a';
+        document.querySelector('img').src= 'img/what.gif';
+        document.querySelector('input').disabled = false;
+        document.getElementById('btn01').disabled = false;
+
+        score=0
+        document.getElementById('sco').innerHTML= score;
+})
+
+// finish...................................................................
+    </script>
+
+</body>
+</html>
